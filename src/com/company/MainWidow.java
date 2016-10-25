@@ -78,6 +78,7 @@ public class MainWidow {
 
                 for (int i = 0; i < count; i++) {
                     gameManager.addTank(e.getX(), e.getY());
+                    gameManager.addBullet(e.getX(), e.getY());
                 }
 			}
 		});

@@ -1,6 +1,7 @@
 
 package com.company.core;
 
+import com.company.core.models.Bullet;
 import com.company.core.models.Tank;
 import com.company.core.views.BaseView;
 
@@ -42,6 +43,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         view = _view;
         view.setEventsListener(this);
         tanks = new ArrayList<>();
+        bullets = new ArrayList<>();
     }
 
     // =============================================================================================
@@ -119,6 +121,13 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
             tank.vy = RAND.nextInt(10) - 5;
         }
         tanks.add(tank);
+    }
+
+    public void addBullet(int x, int y){
+        if (!isRunning) return;
+        Bullet bullet= new Bullet(200, 300);
+        bullet.x=x-10;
+        bullet.y=y-15;
     }
 
     // =============================================================================================
