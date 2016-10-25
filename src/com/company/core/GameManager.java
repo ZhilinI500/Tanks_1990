@@ -201,9 +201,19 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         Ball b1 = balls.get(0);
 
         int code = e.getKeyCode();
-        if(code==KeyEvent.VK_LEFT){
-            b1.vx *= -1;
-            b1.x = width - b1.r;
+        switch(code){
+            case KeyEvent.VK_LEFT:
+                b1.x -= 10;
+                break;
+            case KeyEvent.VK_UP:
+                b1.y -= 10;
+                break;
+            case KeyEvent.VK_DOWN:
+                b1.y += 10;
+                break;
+            case KeyEvent.VK_RIGHT:
+                b1.x += 10;
+                break;
         }
     }
 
