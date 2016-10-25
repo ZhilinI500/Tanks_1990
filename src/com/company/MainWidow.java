@@ -22,7 +22,7 @@ public class MainWidow {
 		frame.setBounds(100, 100, 450, 300);
         // Приложение должно завершиться после закрытия окна
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Prisoned Ball");
+        frame.setTitle("Prisoned Tank");
 
         // Создаем вьюшку и добавляем ее в окно
         BaseView view = new BaseView();
@@ -77,7 +77,7 @@ public class MainWidow {
                 }
 
                 for (int i = 0; i < count; i++) {
-                    gameManager.addBall(e.getX(), e.getY());
+                    gameManager.addTank(e.getX(), e.getY());
                 }
 			}
 		});

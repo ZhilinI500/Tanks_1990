@@ -1,28 +1,25 @@
 package com.company.core.models;
 
-import com.company.utils.ColorExtends;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
 /**
  * Модель шарика, описывает его свойства
  */
-public class Ball {
+public class Tank {
     public int x;
     public int y;
     // Скорости по осям
     public double vx;
     public double vy;
 
-	public final int r;
-	private final int d;
+	public final int width;
+	public final int height;
 	private final Color color;
 
-	public Ball(int r) {
-		this.r = r;
-		d = 2 * r;
-        // Случайный цвет
+	public Tank(int width, int height) {
+		this.width = width;
+		this.height = height;
 		color = Color.darkGray;
 	}
 
@@ -30,7 +27,7 @@ public class Ball {
         // Отрисовка шарика, вначале установим цвет кисти
 		g.setColor(color);
         // Потом рисуем овал передавая координаты левого верхнего угла, ширину и высоту
-		g.fillRect(x - r, y - r, d, d);
+		g.fillRect(x - width/2, y - height/2, width, height);
 		//g.fillOval(x - r, y - 2*r , d, d);
 	}
 }

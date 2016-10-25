@@ -1,7 +1,7 @@
 
 package com.company.core;
 
-import com.company.core.models.Ball;
+import com.company.core.models.Tank;
 import com.company.core.views.BaseView;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     // =============================================================================================
     private final BaseView view;
     // Список шариков
-    private ArrayList<Ball> balls;
+    private ArrayList<Tank> tanks;
     // Ширина и высота вьюшки
     private int width;
     private int height;
@@ -41,7 +41,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     public GameManager(BaseView _view) {
         view = _view;
         view.setEventsListener(this);
-        balls = new ArrayList<>();
+        tanks = new ArrayList<>();
     }
 
     // =============================================================================================
@@ -107,18 +107,18 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     /**
      * Добавить шарик с центром в точке с переданными координатами и случайным вектором скорости
      */
-    public void addBall(int x, int y) {
+    public void addTank(int x, int y) {
         if (!isRunning) return;
-        Ball ball = new Ball(10);
-        ball.x = x;
-        ball.y = y;
-        while (ball.vx == 0) {
-            ball.vx = RAND.nextInt(10) - 5;
+        Tank tank = new Tank(20, 30);
+        tank.x = x;
+        tank.y = y;
+        while (tank.vx == 0) {
+            tank.vx = RAND.nextInt(10) - 5;
         }
-        while (ball.vy == 0) {
-            ball.vy = RAND.nextInt(10) - 5;
+        while (tank.vy == 0) {
+            tank.vy = RAND.nextInt(10) - 5;
         }
-        balls.add(ball);
+        tanks.add(tank);
     }
 
     // =============================================================================================
@@ -128,10 +128,10 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     /**
      * Пересчет мира, положения столкновения и прочая физика
      */
-    private void update() { // Переписать тело ифов
+    private void update() {
         // Для каждого шарика
-        for (int i = 0; i < balls.size(); i++) {
-            Ball b1 = balls.get(i);
+        for (int i = 0; i < tanks.size(); i++) {
+            Tank b1 = tanks.get(i);
             // 1. Передвинем
             //b1.x += b1.vx;
             //b1.y += b1.vy;
@@ -175,12 +175,12 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     @Override
     public void onDraw(Graphics g) {
         // Отрисовываем каждый шарик
-        for (Ball ball : balls) {
-            ball.draw(g);
+        for (Tank tank : tanks) {
+            tank.draw(g);
         }
         // Вывод служебной информации
         g.setColor(Color.BLACK);
-        g.drawString(String.format("ups=%d, fps=%d, count=%d", ups, fps, balls.size()), 5, 16);
+        g.drawString(String.format("ups=%d, fps=%d, count=%d", ups, fps, tanks.size()), 5, 16);
     }
 
     @Override
@@ -198,21 +198,21 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        Ball b1 = balls.get(0);
+        Tank t1 = tanks.get(0);
 
         int code = e.getKeyCode();
         switch(code){
             case KeyEvent.VK_LEFT:
-                b1.x -= 10;
+                t1.x -= 10;
                 break;
             case KeyEvent.VK_UP:
-                b1.y -= 10;
+                t1.y -= 10;
                 break;
             case KeyEvent.VK_DOWN:
-                b1.y += 10;
+                t1.y += 10;
                 break;
             case KeyEvent.VK_RIGHT:
-                b1.x += 10;
+                t1.x += 10;
                 break;
         }
     }
