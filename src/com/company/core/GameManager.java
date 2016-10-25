@@ -26,6 +26,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     private final BaseView view;
     // Список шариков
     private ArrayList<Tank> tanks;
+    private ArrayList<Bullet> bullets;
     // Ширина и высота вьюшки
     private int width;
     private int height;
@@ -125,9 +126,10 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
 
     public void addBullet(int x, int y){
         if (!isRunning) return;
-        Bullet bullet= new Bullet(200, 300);
-        bullet.x=x-10;
-        bullet.y=y-15;
+        Bullet bullet= new Bullet(10, 15);
+        bullet.x=x-1;
+        bullet.y=y-23;
+        bullets.add(bullet);
     }
 
     // =============================================================================================
@@ -186,6 +188,10 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         // Отрисовываем каждый шарик
         for (Tank tank : tanks) {
             tank.draw(g);
+        }
+        // Отрисовываем пулю
+        for(Bullet bullet : bullets){
+            bullet.draw(g);
         }
         // Вывод служебной информации
         g.setColor(Color.BLACK);
