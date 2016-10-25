@@ -214,20 +214,25 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     public void keyPressed(KeyEvent e) {
 
         Tank t1 = tanks.get(0);
+        Bullet b1=bullets.get(0);
 
         int code = e.getKeyCode();
         switch(code){
             case KeyEvent.VK_LEFT:
                 t1.x -= 10;
+                b1.x -= 10;
                 break;
             case KeyEvent.VK_UP:
                 t1.y -= 10;
+                b1.y -= 10;
                 break;
             case KeyEvent.VK_DOWN:
                 t1.y += 10;
+                b1.y += 10;
                 break;
             case KeyEvent.VK_RIGHT:
                 t1.x += 10;
+                b1.x += 10;
                 break;
         }
     }
