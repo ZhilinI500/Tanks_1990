@@ -109,7 +109,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
      */
     public void addTank(int x, int y) {
         if (!isRunning) return;
-        Tank tank = new Tank(20, 30);
+        Tank tank = new Tank(40, 50);
         tank.x = x;
         tank.y = y;
 //        while (tank.vx == 0) {
@@ -204,15 +204,19 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         switch(code){
             case KeyEvent.VK_LEFT:
                 t1.vx = -10;
+                t1.curDirection = Tank.Direction.LEFT;
                 break;
             case KeyEvent.VK_UP:
                 t1.vy = -10;
+                t1.curDirection = Tank.Direction.UP;
                 break;
             case KeyEvent.VK_DOWN:
                 t1.vy = 10;
+                t1.curDirection = Tank.Direction.DOWN;
                 break;
             case KeyEvent.VK_RIGHT:
                 t1.vx = 10;
+                t1.curDirection = Tank.Direction.RIGHT;
                 break;
             case KeyEvent.VK_SPACE:
                 //пуля полетела

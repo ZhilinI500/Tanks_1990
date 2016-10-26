@@ -13,8 +13,17 @@ public class Tank {
     public double vx;
     public double vy;
 
+	public enum Direction{
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT
+	}
+
 	public final int width;
 	public final int height;
+	public Direction curDirection = Direction.UP;
+
 	private final Color color;
 
 	public Tank(int width, int height) {
@@ -26,6 +35,7 @@ public class Tank {
 	public void draw(Graphics g) {
         // Отрисовка танка, вначале установим цвет кисти
 		g.setColor(color);
-		g.fillRect(x - width/2, y - height/2, width, height);
+		g.fillRect(x - width / 2, y - height / 2, width, height);
+		g.fillRect(x - width/8, y - height, width/5, height / 2);
 	}
 }
