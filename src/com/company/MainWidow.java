@@ -50,6 +50,7 @@ public class MainWidow {
                 gameManager.start();
                 startMenuItem.setEnabled(false);
                 pauseMenuItem.setEnabled(true);
+                gameManager.addTank(250, 100);
             }
         });
         pauseMenuItem.addActionListener(new ActionListener() {
@@ -62,7 +63,7 @@ public class MainWidow {
         });
 
         // Подписываемся на событие клика по вьюшке
-        frame.getContentPane().addMouseListener(new MouseAdapter() {
+        /*frame.getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 // При клике ЛЕВОЙ кнопкой добавляем 1 новый шарик с координатами клика
@@ -80,7 +81,7 @@ public class MainWidow {
                     gameManager.addTank(e.getX(), e.getY());
                 }
 			}
-		});
+		});*/
 	}
 
 	public static void main(String[] args) {

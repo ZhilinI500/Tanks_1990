@@ -112,12 +112,12 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         Tank tank = new Tank(20, 30);
         tank.x = x;
         tank.y = y;
-        while (tank.vx == 0) {
-            tank.vx = RAND.nextInt(10) - 5;
-        }
-        while (tank.vy == 0) {
-            tank.vy = RAND.nextInt(10) - 5;
-        }
+//        while (tank.vx == 0) {
+//            tank.vx = RAND.nextInt(10) - 5;
+//        }
+//        while (tank.vy == 0) {
+//            tank.vy = RAND.nextInt(10) - 5;
+//        }
         tanks.add(tank);
     }
 
@@ -133,8 +133,8 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         for (int i = 0; i < tanks.size(); i++) {
             Tank b1 = tanks.get(i);
             // 1. Передвинем
-            //b1.x += b1.vx;
-            //b1.y += b1.vy;
+            b1.x += b1.vx;
+            b1.y += b1.vy;
 
             // 2. Обсчитаем столкновение со стенами
             // слева
@@ -203,22 +203,41 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         int code = e.getKeyCode();
         switch(code){
             case KeyEvent.VK_LEFT:
-                t1.x -= 10;
+                t1.vx = -10;
                 break;
             case KeyEvent.VK_UP:
-                t1.y -= 10;
+                t1.vy = -10;
                 break;
             case KeyEvent.VK_DOWN:
-                t1.y += 10;
+                t1.vy = 10;
                 break;
             case KeyEvent.VK_RIGHT:
-                t1.x += 10;
+                t1.vx = 10;
+                break;
+            case KeyEvent.VK_SPACE:
+                //пуля полетела
                 break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        Tank t1 = tanks.get(0);
 
+        int code = e.getKeyCode();
+        switch(code){
+            case KeyEvent.VK_LEFT:
+                t1.vx = 0;
+                break;
+            case KeyEvent.VK_UP:
+                t1.vy = 0;
+                break;
+            case KeyEvent.VK_DOWN:
+                t1.vy = 0;
+                break;
+            case KeyEvent.VK_RIGHT:
+                t1.vx = 0;
+                break;
+        }
     }
 }

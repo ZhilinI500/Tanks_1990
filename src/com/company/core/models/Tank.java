@@ -24,10 +24,8 @@ public class Tank {
 	}
 
 	public void draw(Graphics g) {
-        // Отрисовка шарика, вначале установим цвет кисти
+        // Отрисовка танка, вначале установим цвет кисти
 		g.setColor(color);
-        // Потом рисуем овал передавая координаты левого верхнего угла, ширину и высоту
 		g.fillRect(x - width/2, y - height/2, width, height);
-		//g.fillOval(x - r, y - 2*r , d, d);
 	}
 }
