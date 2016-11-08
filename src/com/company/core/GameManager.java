@@ -28,6 +28,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     // Ширина и высота вьюшки
     private int width;
     private int height;
+    private int laskPressedKey;
     // Запущена ли игра
     private boolean isRunning;
     // Frames per second - обновлений вьюшки в секунду
@@ -201,26 +202,36 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         Tank t1 = tanks.get(0);
 
         int code = e.getKeyCode();
-        switch(code){
-            case KeyEvent.VK_LEFT:
-                t1.vx = -10;
-                t1.curDirection = Tank.Direction.LEFT;
-                break;
-            case KeyEvent.VK_UP:
-                t1.vy = -10;
-                t1.curDirection = Tank.Direction.UP;
-                break;
-            case KeyEvent.VK_DOWN:
-                t1.vy = 10;
-                t1.curDirection = Tank.Direction.DOWN;
-                break;
-            case KeyEvent.VK_RIGHT:
-                t1.vx = 10;
-                t1.curDirection = Tank.Direction.RIGHT;
-                break;
-            case KeyEvent.VK_SPACE:
-                //пуля полетела
-                break;
+        if (!t1.turningLocked) {
+            switch (code) {
+                case KeyEvent.VK_LEFT:
+                    t1.vx = -5;
+                    t1.curDirection = Tank.Direction.LEFT;
+                    t1.turningLocked = true;
+                    laskPressedKey = KeyEvent.VK_LEFT;
+                    break;
+                case KeyEvent.VK_UP:
+                    t1.vy = -5;
+                    t1.curDirection = Tank.Direction.UP;
+                    t1.turningLocked = true;
+                    laskPressedKey = KeyEvent.VK_UP;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    t1.vy = 5;
+                    t1.curDirection = Tank.Direction.DOWN;
+                    t1.turningLocked = true;
+                    laskPressedKey = KeyEvent.VK_DOWN;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    t1.vx = 5;
+                    t1.curDirection = Tank.Direction.RIGHT;
+                    t1.turningLocked = true;
+                    laskPressedKey = KeyEvent.VK_RIGHT;
+                    break;
+                case KeyEvent.VK_SPACE:
+                    //пуля полетела
+                    break;
+            }
         }
     }
 
@@ -232,15 +243,27 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         switch(code){
             case KeyEvent.VK_LEFT:
                 t1.vx = 0;
+                if (t1.curDirection == Tank.Direction.LEFT){
+                    t1.turningLocked = false;
+                }
                 break;
             case KeyEvent.VK_UP:
                 t1.vy = 0;
+                if (t1.curDirection == Tank.Direction.UP){
+                    t1.turningLocked = false;
+                }
                 break;
             case KeyEvent.VK_DOWN:
                 t1.vy = 0;
+                if (t1.curDirection == Tank.Direction.DOWN){
+                    t1.turningLocked = false;
+                }
                 break;
             case KeyEvent.VK_RIGHT:
                 t1.vx = 0;
+                if (t1.curDirection == Tank.Direction.RIGHT){
+                    t1.turningLocked = false;
+                }
                 break;
         }
     }

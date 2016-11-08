@@ -9,6 +9,7 @@ import java.awt.Graphics;
 public class Tank {
     public int x;
     public int y;
+	public boolean turningLocked = false;
     // Скорости по осям
     public double vx;
     public double vy;
