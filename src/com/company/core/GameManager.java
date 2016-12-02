@@ -1,6 +1,7 @@
 
 package com.company.core;
 
+import com.company.core.models.Bullet;
 import com.company.core.models.Tank;
 import com.company.core.views.BaseView;
 
@@ -25,6 +26,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     private final BaseView view;
     // Список шариков
     private ArrayList<Tank> tanks;
+    private ArrayList<Bullet> bullets;
     // Ширина и высота вьюшки
     private int width;
     private int height;
@@ -43,6 +45,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         view = _view;
         view.setEventsListener(this);
         tanks = new ArrayList<>();
+        bullets = new ArrayList<>();
     }
 
     // =============================================================================================
@@ -122,6 +125,14 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         tanks.add(tank);
     }
 
+    public void addBullet(int x, int y){
+        if (!isRunning) return;
+        Bullet bullet= new Bullet(10, 15);
+        bullet.x=x-1;
+        bullet.y=y-23;
+        bullets.add(bullet);
+    }
+
     // =============================================================================================
     // UPDATING
     // =============================================================================================
@@ -179,6 +190,10 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         for (Tank tank : tanks) {
             tank.draw(g);
         }
+        // Отрисовываем пулю
+        for(Bullet bullet : bullets){
+            bullet.draw(g);
+        }
         // Вывод служебной информации
         g.setColor(Color.BLACK);
         g.drawString(String.format("ups=%d, fps=%d, count=%d", ups, fps, tanks.size()), 5, 16);
@@ -200,6 +215,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     public void keyPressed(KeyEvent e) {
 
         Tank t1 = tanks.get(0);
+        Bullet b1=bullets.get(0);
 
         int code = e.getKeyCode();
         if (!t1.turningLocked) {
