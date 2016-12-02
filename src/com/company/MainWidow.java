@@ -51,6 +51,7 @@ public class MainWidow {
                 startMenuItem.setEnabled(false);
                 pauseMenuItem.setEnabled(true);
                 gameManager.addTank(250, 100);
+                gameManager.addBullet(250, 100);
             }
         });
         pauseMenuItem.addActionListener(new ActionListener() {

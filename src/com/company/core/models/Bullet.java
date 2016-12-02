@@ -9,6 +9,7 @@ public class Bullet {
     // Скорости по осям
     public double vx;
     public double vy;
+    public boolean isFlying = false;
 
     public final int width;
     public final int height;

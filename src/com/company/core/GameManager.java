@@ -116,20 +116,14 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         Tank tank = new Tank(40, 50);
         tank.x = x;
         tank.y = y;
-//        while (tank.vx == 0) {
-//            tank.vx = RAND.nextInt(10) - 5;
-//        }
-//        while (tank.vy == 0) {
-//            tank.vy = RAND.nextInt(10) - 5;
-//        }
         tanks.add(tank);
     }
 
     public void addBullet(int x, int y){
         if (!isRunning) return;
-        Bullet bullet= new Bullet(10, 15);
-        bullet.x=x-1;
-        bullet.y=y-23;
+        Bullet bullet= new Bullet(10, 10);
+        bullet.x=x;
+        bullet.y=y;
         bullets.add(bullet);
     }
 
@@ -143,32 +137,47 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     private void update() {
         // Для каждого шарика
         for (int i = 0; i < tanks.size(); i++) {
-            Tank b1 = tanks.get(i);
+            Tank t1 = tanks.get(i);
+            Bullet b1 = bullets.get(i);
             // 1. Передвинем
+            t1.x += t1.vx;
+            t1.y += t1.vy;
             b1.x += b1.vx;
             b1.y += b1.vy;
 
             // 2. Обсчитаем столкновение со стенами
             // слева
-            /*if (b1.x - b1.r <= 0) {
-                b1.vx *= -1;
-                b1.x = b1.r;
+            if (b1.x <= 0) {
+                b1.x = t1.x;
+                b1.y = t1.y;
+                b1.vx = t1.vx;
+                b1.vy = t1.vy;
+                b1.isFlying = false;
             }
             // справа
-            if (b1.x + b1.r >= width) {
-                b1.vx *= -1;
-                b1.x = width - b1.r;
+            if (b1.x >= width) {
+                b1.x = t1.x;
+                b1.y = t1.y;
+                b1.vx = t1.vx;
+                b1.vy = t1.vy;
+                b1.isFlying = false;
             }
             // сверху
-            if (b1.y - b1.r <= 0) {
-                b1.vy *= -1;
-                b1.y = b1.r;
+            if (b1.y <= 0) {
+                b1.x = t1.x;
+                b1.y = t1.y;
+                b1.vx = t1.vx;
+                b1.vy = t1.vy;
+                b1.isFlying = false;
             }
             // снизу
-            if (b1.y + b1.r >= height) {
-                b1.vy *= -1;
-                b1.y = height - b1.r;
-            }*/
+            if (b1.y >= height) {
+                b1.x = t1.x;
+                b1.y = t1.y;
+                b1.vx = t1.vx;
+                b1.vy = t1.vy;
+                b1.isFlying = false;
+            }
 
             // 3. Обсчитаем столкновение друг с другом
             // TODO implement
@@ -222,30 +231,52 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
             switch (code) {
                 case KeyEvent.VK_LEFT:
                     t1.vx = -5;
+                    if(!b1.isFlying)
+                        b1.vx = t1.vx;
                     t1.curDirection = Tank.Direction.LEFT;
                     t1.turningLocked = true;
                     laskPressedKey = KeyEvent.VK_LEFT;
                     break;
                 case KeyEvent.VK_UP:
                     t1.vy = -5;
+                    if(!b1.isFlying)
+                        b1.vy = t1.vy;
                     t1.curDirection = Tank.Direction.UP;
                     t1.turningLocked = true;
                     laskPressedKey = KeyEvent.VK_UP;
                     break;
                 case KeyEvent.VK_DOWN:
                     t1.vy = 5;
+                    if(!b1.isFlying)
+                        b1.vy = t1.vy;
                     t1.curDirection = Tank.Direction.DOWN;
                     t1.turningLocked = true;
                     laskPressedKey = KeyEvent.VK_DOWN;
                     break;
                 case KeyEvent.VK_RIGHT:
                     t1.vx = 5;
+                    if(!b1.isFlying)
+                        b1.vx = t1.vx;
                     t1.curDirection = Tank.Direction.RIGHT;
                     t1.turningLocked = true;
                     laskPressedKey = KeyEvent.VK_RIGHT;
                     break;
                 case KeyEvent.VK_SPACE:
-                    //пуля полетела
+                    b1.isFlying = true;
+                    switch(t1.curDirection) {
+                        case LEFT:
+                            b1.vx = -20;
+                            break;
+                        case RIGHT:
+                            b1.vx = 20;
+                            break;
+                        case UP:
+                            b1.vy = -20;
+                            break;
+                        case DOWN:
+                            b1.vy = 20;
+                            break;
+                    }
                     break;
             }
         }
@@ -254,29 +285,38 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         Tank t1 = tanks.get(0);
+        Bullet b1=bullets.get(0);
 
         int code = e.getKeyCode();
         switch(code){
             case KeyEvent.VK_LEFT:
                 t1.vx = 0;
+                if(!b1.isFlying)
+                    b1.vx = t1.vx;
                 if (t1.curDirection == Tank.Direction.LEFT){
                     t1.turningLocked = false;
                 }
                 break;
             case KeyEvent.VK_UP:
                 t1.vy = 0;
+                if(!b1.isFlying)
+                    b1.vy = t1.vy;
                 if (t1.curDirection == Tank.Direction.UP){
                     t1.turningLocked = false;
                 }
                 break;
             case KeyEvent.VK_DOWN:
                 t1.vy = 0;
+                if(!b1.isFlying)
+                    b1.vy = t1.vy;
                 if (t1.curDirection == Tank.Direction.DOWN){
                     t1.turningLocked = false;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
                 t1.vx = 0;
+                if(!b1.isFlying)
+                    b1.vx = t1.vx;
                 if (t1.curDirection == Tank.Direction.RIGHT){
                     t1.turningLocked = false;
                 }
