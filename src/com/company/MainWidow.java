@@ -51,8 +51,8 @@ public class MainWidow {
                 gameManager.start();
                 startMenuItem.setEnabled(false);
                 pauseMenuItem.setEnabled(true);
-                gameManager.addTank(250, 100);
                 gameManager.addBullet(250, 100);
+                gameManager.addTank(250, 100);
                 gameManager.addWall(190, 90);
                 gameManager.addWall(310, 90);
                 gameManager.addWall(250, 30);

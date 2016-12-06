@@ -40,25 +40,25 @@ public class Tank {
 				g.setColor(color);
 				g.fillRect(x - width / 2, y - height / 2, width, height);
 				g.setColor(Color.black);
-				g.fillRect(x - width/8, y - height, width/5, height/2);
+				g.fillRect(x - width/8, y - height / 2, width/5, height/2);
 				break;
 			case DOWN:
 				g.setColor(color);
 				g.fillRect(x - width / 2, y - height / 2, width, height);
 				g.setColor(Color.black);
-				g.fillRect(x - width/8, y + height / 2, width/5, height/2);
+				g.fillRect(x - width/8, y, width/5, height/2);
 				break;
 			case LEFT:
 				g.setColor(color);
 				g.fillRect(x - height / 2, y - (width / 2), height, width);
 				g.setColor(Color.black);
-				g.fillRect(x - height, y - width/8, height/2, width/5);
+				g.fillRect(x - width / 2, y - height / 8, height/2, width/5);
 				break;
 			case RIGHT:
 				g.setColor(color);
 				g.fillRect(x - height / 2, y - width / 2, height, width);
 				g.setColor(Color.black);
-				g.fillRect(x + height / 2, y - width/8, height/2, width/5);
+				g.fillRect(x, y - height / 8, height/2, width/5);
 				break;
 		}
 

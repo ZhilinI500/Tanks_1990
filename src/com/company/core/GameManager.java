@@ -116,7 +116,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
      */
     public void addTank(int x, int y) {
         if (!isRunning) return;
-        Tank tank = new Tank(60, 40);
+        Tank tank = new Tank(60, 60);
         tank.x = x;
         tank.y = y;
         tanks.add(tank);
@@ -207,13 +207,13 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
 
     @Override
     public void onDraw(Graphics g) {
-        // Отрисовываем каждый шарик
-        for (Tank tank : tanks) {
-            tank.draw(g);
-        }
         // Отрисовываем пулю
         for (Bullet bullet : bullets){
             bullet.draw(g);
+        }
+        // Отрисовываем каждый шарик
+        for (Tank tank : tanks) {
+            tank.draw(g);
         }
         // Отрисовка стены
         for (Wall wall  : walls){
