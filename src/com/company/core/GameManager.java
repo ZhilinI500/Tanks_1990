@@ -3,6 +3,7 @@ package com.company.core;
 
 import com.company.core.models.Bullet;
 import com.company.core.models.Tank;
+import com.company.core.models.Wall;
 import com.company.core.views.BaseView;
 
 import java.awt.*;
@@ -27,6 +28,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
     // Список шариков
     private ArrayList<Tank> tanks;
     private ArrayList<Bullet> bullets;
+    private ArrayList<Wall> walls;
     // Ширина и высота вьюшки
     private int width;
     private int height;
@@ -46,6 +48,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         view.setEventsListener(this);
         tanks = new ArrayList<>();
         bullets = new ArrayList<>();
+        walls = new ArrayList<>();
     }
 
     // =============================================================================================
@@ -113,7 +116,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
      */
     public void addTank(int x, int y) {
         if (!isRunning) return;
-        Tank tank = new Tank(40, 50);
+        Tank tank = new Tank(60, 40);
         tank.x = x;
         tank.y = y;
         tanks.add(tank);
@@ -125,6 +128,14 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         bullet.x=x;
         bullet.y=y;
         bullets.add(bullet);
+    }
+    public void addWall(int x, int y){
+        if (!isRunning) return;
+            Wall wall = new Wall(60, 60);
+            wall.x = x;
+            wall.y = y;
+            walls.add(wall);
+
     }
 
     // =============================================================================================
@@ -180,6 +191,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
             }
 
             // 3. Обсчитаем столкновение друг с другом
+
             // TODO implement
         }
     }
@@ -200,8 +212,12 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
             tank.draw(g);
         }
         // Отрисовываем пулю
-        for(Bullet bullet : bullets){
+        for (Bullet bullet : bullets){
             bullet.draw(g);
+        }
+        // Отрисовка стены
+        for (Wall wall  : walls){
+            wall.draw(g);
         }
         // Вывод служебной информации
         g.setColor(Color.BLACK);

@@ -18,7 +18,7 @@ public class Bullet {
     public Bullet(int width, int height) {
         this.width = width;
         this.height = height;
-        color = Color.cyan;
+        color = Color.red;
     }
 
     public void draw(Graphics g) {

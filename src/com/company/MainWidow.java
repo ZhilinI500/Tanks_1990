@@ -15,6 +15,7 @@ import javax.swing.*;
  * Главное окно игры
  */
 public class MainWidow {
+
 	private MainWidow() {
         // Инициализируем свойства окна
         JFrame frame = new JFrame();
@@ -52,6 +53,10 @@ public class MainWidow {
                 pauseMenuItem.setEnabled(true);
                 gameManager.addTank(250, 100);
                 gameManager.addBullet(250, 100);
+                gameManager.addWall(190, 90);
+                gameManager.addWall(310, 90);
+                gameManager.addWall(250, 30);
+                gameManager.addWall(250, 150);
             }
         });
         pauseMenuItem.addActionListener(new ActionListener() {
@@ -87,6 +92,7 @@ public class MainWidow {
 	}
 
 	public static void main(String[] args) {
+
         // Точка входа, создаем экземпляр главного окна
         EventQueue.invokeLater(new Runnable() {
             public void run() {
