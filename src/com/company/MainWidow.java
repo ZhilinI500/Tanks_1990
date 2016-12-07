@@ -20,7 +20,8 @@ public class MainWidow {
         // Инициализируем свойства окна
         JFrame frame = new JFrame();
         frame.setVisible(true);
-		frame.setBounds(100, 100, 450, 300);
+        frame.setResizable(false);
+		frame.setBounds(100, 100, 600, 800);
         // Приложение должно завершиться после закрытия окна
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Prisoned Tank");
@@ -53,10 +54,8 @@ public class MainWidow {
                 pauseMenuItem.setEnabled(true);
                 gameManager.addBullet(250, 100);
                 gameManager.addTank(250, 100);
-                gameManager.addWall(190, 90);
-                gameManager.addWall(310, 90);
-                gameManager.addWall(250, 30);
-                gameManager.addWall(250, 150);
+                gameManager.addWall(180, 90);
+                gameManager.addWall(320, 90);
             }
         });
         pauseMenuItem.addActionListener(new ActionListener() {

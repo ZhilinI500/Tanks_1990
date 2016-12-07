@@ -146,7 +146,6 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
      * Пересчет мира, положения столкновения и прочая физика
      */
     private void update() {
-        // Для каждого шарика
         for (int i = 0; i < tanks.size(); i++) {
             Tank t1 = tanks.get(i);
             Bullet b1 = bullets.get(i);
@@ -190,9 +189,47 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
                 b1.isFlying = false;
             }
 
-            // 3. Обсчитаем столкновение друг с другом
+            if (t1.x + t1.width / 2 >= width) {
+                t1.x = width - t1.width / 2;
+                if (!b1.isFlying) {
+                    b1.vx = 0;
+                }
+            }
 
-            // TODO implement
+            if (t1.x - t1.width / 2 <= 0) {
+                t1.x = t1.width / 2;
+                if (!b1.isFlying) {
+                    b1.vx = 0;
+                }
+            }
+
+            if (t1.y + t1.height / 2 >= height) {
+                t1.y = height - t1.height / 2;
+                if (!b1.isFlying) {
+                    b1.vy = 0;
+                }
+            }
+            if (t1.y - t1.height / 2 <= 0) {
+                t1.y = t1.height / 2;
+                if (!b1.isFlying) {
+                    b1.vy = 0;
+                }
+            }
+
+            for (int j = 0; j < walls.size(); j++) {//тут идет проверка пересечения стен с танками
+                Wall w1 = walls.get(j);
+
+                if((w1.x + w1.width / 2 >= t1.x - t1.width / 2) &&
+                  (w1.x - w1.width / 2 <= t1.x + t1.width / 2) &&
+                  (w1.y + w1.height / 2 >= t1.y - t1.height / 2) &&
+                  (w1.y - w1.height / 2 <= t1.y + t1.height / 2)){ //Танк пересекся со стеной, но пока неизвестно с какой стороны
+                    if(w1.x + w1.width / 2 >= t1.x - t1.width / 2){//Танк подъехал к стене справа
+                        t1.x = w1.x + (w1.width / 2) + t1.width/2;
+                    }else if(w1.x - w1.width / 2 >= t1.x + t1.width / 2){//Танк подъехал слева
+                        t1.x = w1.x - (w1.width / 2) - t1.width / 2;
+                    }
+                }
+            }
         }
     }
 
@@ -246,7 +283,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
         if (!t1.turningLocked) {
             switch (code) {
                 case KeyEvent.VK_LEFT:
-                    t1.vx = -5;
+                    t1.vx = -2;
                     if(!b1.isFlying)
                         b1.vx = t1.vx;
                     t1.curDirection = Tank.Direction.LEFT;
@@ -254,7 +291,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
                     laskPressedKey = KeyEvent.VK_LEFT;
                     break;
                 case KeyEvent.VK_UP:
-                    t1.vy = -5;
+                    t1.vy = -2;
                     if(!b1.isFlying)
                         b1.vy = t1.vy;
                     t1.curDirection = Tank.Direction.UP;
@@ -262,7 +299,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
                     laskPressedKey = KeyEvent.VK_UP;
                     break;
                 case KeyEvent.VK_DOWN:
-                    t1.vy = 5;
+                    t1.vy = 2;
                     if(!b1.isFlying)
                         b1.vy = t1.vy;
                     t1.curDirection = Tank.Direction.DOWN;
@@ -270,7 +307,7 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
                     laskPressedKey = KeyEvent.VK_DOWN;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    t1.vx = 5;
+                    t1.vx = 2;
                     if(!b1.isFlying)
                         b1.vx = t1.vx;
                     t1.curDirection = Tank.Direction.RIGHT;
@@ -278,22 +315,24 @@ public class GameManager implements BaseView.EventsListener, KeyListener {
                     laskPressedKey = KeyEvent.VK_RIGHT;
                     break;
                 case KeyEvent.VK_SPACE:
-                    b1.isFlying = true;
-                    switch(t1.curDirection) {
-                        case LEFT:
-                            b1.vx = -20;
-                            break;
-                        case RIGHT:
-                            b1.vx = 20;
-                            break;
-                        case UP:
-                            b1.vy = -20;
-                            break;
-                        case DOWN:
-                            b1.vy = 20;
-                            break;
+                    if(!b1.isFlying) {
+                        b1.isFlying = true;
+                        switch (t1.curDirection) {
+                            case LEFT:
+                                b1.vx = -20;
+                                break;
+                            case RIGHT:
+                                b1.vx = 20;
+                                break;
+                            case UP:
+                                b1.vy = -20;
+                                break;
+                            case DOWN:
+                                b1.vy = 20;
+                                break;
+                        }
+                        break;
                     }
-                    break;
             }
         }
     }
